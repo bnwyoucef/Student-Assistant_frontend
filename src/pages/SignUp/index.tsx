@@ -1,24 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import "./index.css"
 import axios from '../../Api/Axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   async function signUp(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (password === confirmPassword) {
       try {
         const response = await axios.post("users/sign-up", { email, password });
-        console.log(response.data);
         if (response.data.status === 409) {
           setErrorMessage(response.data.message)
+        } else {
+          navigate("/");
         }
       } catch (error: any) {
-        console.log(error.response?.data?.message[0]);
         setErrorMessage(error.response?.data?.message[0]);
       }
     } else {
@@ -49,9 +52,9 @@ const SignUp = () => {
               <span className="text-gray-600 text-sm">
                 Have an account?
               </span>
-              <span className="text-gray-700 text-sm font-semibold">
+              <Link to="/" className="text-gray-700 text-sm font-semibold">
                 Sign in
-              </span>
+              </Link>
             </div>
             <div className="mb-4 mt-6">
               <label
