@@ -15,7 +15,7 @@ const index = () => {
   const unSelectedStyle = "flex bg-white hover:bg-yellow-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
 
   return (
-    <div className="relative bg-yellow-50 overflow-hidden p-4 max-h-screen">
+    <div className="relative bg-yellow-50 overflow-hidden px-4 max-h-screen">
       <aside className="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60">
         <div className="flex flex-col justify-between h-full">
           <div className="flex-grow">
