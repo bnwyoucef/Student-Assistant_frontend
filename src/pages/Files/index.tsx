@@ -25,8 +25,8 @@ const Files = () => {
               <div className="sm:flex items-center justify-between">
                   <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Files</p>
                   <div className="mt-4 sm:mt-0">
-                      <button className="inline-flex sm:ml-3 items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
-                          <p className="text-sm font-medium leading-none text-white">Download All</p>
+                      <button className="text-grey-darkest font-bold inline-flex sm:ml-3 items-start justify-start px-6 py-3 bg-yellow-400 hover:bg-yellow-300 focus:outline-none rounded">
+                          <p className="leading-none">Download All</p>
                       </button>
                   </div>
               </div>

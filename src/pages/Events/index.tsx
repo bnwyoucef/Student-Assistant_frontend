@@ -1,3 +1,4 @@
+
 import { Scheduler } from "@aldabil/react-scheduler";
 import { EventActions, ProcessedEvent, ViewEvent } from "@aldabil/react-scheduler/types";
 import axios from '../../Api/Axios';
@@ -127,5 +128,6 @@ checkAuth();
       />
     </div>
   );
+
 }
 export default Events;
