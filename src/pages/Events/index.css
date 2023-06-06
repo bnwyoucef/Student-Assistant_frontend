@@ -1,0 +1,73 @@
+.schedulerContainer{
+
+    width: 90%;
+    font-weight: bold;
+    
+ 
+    margin-right: auto;
+    margin-left: auto;
+     
+    }
+    .schedulerContainer button{
+        font-weight: bold;
+        
+    }
+
+    .schedulerContainer span{
+        font-weight: bold;
+    }
+
+    .schedulerContainer p{
+        font-weight: bold;
+    }
+
+    .schedulerContainer div {
+       
+    }
+
+    button.MuiButton-textPrimary{
+        color:  #b27400;}
+    
+        .css-e572m3:first-of-type {
+       border-top-left-radius: 15px;
+       border-top-right-radius: 15px
+        }
+        .css-p1404c:last-of-type{
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+        div.css-p1404c:last-of-type{
+            border-width: 0px 0px 0px 1px;
+        }
+        span.rs__cell:hover{
+            background-color: #fef08a;
+        }
+        div.css-yp0i15-MuiPaper-root{
+            background-color:#b27400 ;
+        }
+        
+div.css-s22wio div:first-child{
+    background-color: #b27400 !important;
+}
+
+[data-id="grid"] {
+    background-color: white !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+p.css-vkc4v8-MuiTypography-root{
+    color:#b27400;
+}
+
+div.css-1w6ojv3{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px
+}
+div.css-1w6ojv3:last-of-type{
+    border-width: 0px 0px 0px 1px;
+}
+
+div.css-1nmp99l{
+    border-top-left-radius: 15px;
+       border-top-right-radius: 15px    
+}

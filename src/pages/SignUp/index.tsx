@@ -9,26 +9,39 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
   const navigate = useNavigate();
 
   async function signUp(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (password === confirmPassword) {
       try {
-        const response = await axios.post("users/sign-up", { email, password });
+        const response = await axios.post("ms-user/user/signUp", { email, password });
         if (response.data.status === 409) {
           setErrorMessage(response.data.message)
         } else {
           navigate("/");
         }
       } catch (error: any) {
-        setErrorMessage(error.response?.data?.message[0]);
+        setErrorMessage(error.response?.data?.message);
       }
     } else {
       setErrorMessage("Passwords do not match!");
     }
   }
-
+  const checkAuth=()=>{
+ 
+    const auth=localStorage.getItem("user");
+    if(auth){
+      navigate("/student/", { replace: true });
+    }
+    else{
+      return ;
+    }
+  }
+  useEffect(()=>{
+    checkAuth();   
+  },[])
   useEffect(() => {
     setErrorMessage('');
   }, [email, password, confirmPassword])

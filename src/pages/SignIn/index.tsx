@@ -7,25 +7,44 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
   const navigate = useNavigate();
 
   async function signIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
-      const response = await axios.post("users/sign-in", { email, password });
+      const response = await axios.post("ms-user/user/signIn", {  email, password });
       if (!response?.data?.signIn) {
         setErrorMessage(response?.data?.message);
       } else {
-        navigate("/dashboard", { replace: true });
+        localStorage.setItem("user",response?.data?.id);
+        navigate("/student/", { replace: true });
+
       }
     } catch (error: any) {
       setErrorMessage(error.response?.data?.message[0]);
     }
   }
 
+  const checkAuth=()=>{
+ 
+    const auth=localStorage.getItem("user");
+    if(auth){
+      navigate("/student/", { replace: true });
+    }
+    else{
+      return ;
+    }
+  }
+
+  useEffect(()=>{
+    checkAuth();   
+  },[])
   useEffect(() => {
     setErrorMessage('');
   }, [email, password])
+
+
 
   return (
     <div className="min-height-form flex flex-col justify-center">

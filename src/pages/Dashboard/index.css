@@ -10,3 +10,7 @@
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, .3);
 }
+
+.st0 {
+    fill: #ffffff;
+  }
