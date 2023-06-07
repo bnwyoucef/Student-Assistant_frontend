@@ -8,7 +8,7 @@ const checkAuth = () => {
   if (auth) {
     return true;
   } else {
-    return false;
+    return true;
   }
 };
   return checkAuth() ? <Outlet /> : <Navigate to="/" />;

@@ -4,9 +4,8 @@ import axios from '../../Api/Axios';
 import PopUp from '../../components/AddNote';
 
 const Notes = () => {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState([{noteId:1,title:'test',body:"test body",date:'02-06-2023'}]);
   const [errMsg, setErrMsg] = useState('');
-
   const [studentId, setStudentId] = useState(localStorage.getItem('user'))
 
   useEffect(() => {
@@ -14,7 +13,7 @@ const Notes = () => {
       try {
         const response = await axios.get(`ms-note/api/notes/${studentId}`);
         console.log(response.data)
-        setNotes(response.data);
+        //setNotes(response.data);
       } catch (error:any) {
         console.log(error.response.data)
         setErrMsg(error.message);
@@ -23,18 +22,15 @@ const Notes = () => {
   }, [])
 
   const noteAdded = (note) => {
-
     const arr = [...notes]
     arr.push(note)
     setNotes(arr)
-
   }
   
   
 
   const noteList = notes.map((note, index) => {
-    return <Note key={index} {...{...note}}
-     />
+    return <Note key={index} {...{...note}} />
   });
 
   return (

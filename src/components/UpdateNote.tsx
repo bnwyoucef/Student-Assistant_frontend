@@ -1,62 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, {useState, useEffect} from 'react'
 import axios from '../Api/Axios';
 
+const UpdateNote = ({note}) => {
+    const [showModal, setShowModal] = useState(false);
+    const [title, setTitle] = useState(note.title)
+    const [details, setDetails] = useState(note.body)
+    const [studentId, setStudentId] = useState(localStorage.getItem('user'))
+    
 
-export default function Modal({noteAdded}) {
-
-  const [showModal, setShowModal] = React.useState(false);
-  const [title, setTitle] = React.useState('')
-  const [details, setDetails] = React.useState('')
-  const [studentId, setStudentId] = useState(localStorage.getItem('user'))
-
-  console.log(title)
-  console.log(details)
-
-  const handleAddNote = async () => {
-    setShowModal(false)
-    try {
-      const res = await axios.post("ms-note/api/notes/add_note", {title: title, body: details, studentId: studentId})
-      console.log(res.data)
-      noteAdded(res.data)  // to update the parent 
-      /* const arr = [...notes]
-      arr.push(res.data)
-      setNotes(arr) */
-    } catch (error) {
-        console.log(error.response.data)
+    function updateNote() {
+        setShowModal(false);
+        try {
+            //const response = await response.patch({})
+            //TODO: update the note
+            console.log("note updated succefully for test purpose!");
+        } catch (error) {
+            
+        }
     }
-  }
 
   return (
     <>
-        <button className="text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center hover:bg-yellow-300 bg-yellow-400"
+        <div className="w-8 h-8 rounded-full bg-white text-gray-800 flex items-center justify-center cursor-pointer"
         onClick={() => setShowModal(true)}
         >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-pencil" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
             </svg>
-            <span>Add Note</span>
-        </button>
-      {showModal ? (
+        </div>
+    {showModal ? (
         <>
-          <div
+        <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
+        >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+            {/*content*/}
+            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">
-                    Add Note
-                  </h3>
-                  <button
+                <h3 className="text-3xl font-semibold">
+                    Modify Note
+                </h3>
+                <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
-                  >
+                >
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
+                    ×
                     </span>
-                  </button>
+                </button>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
@@ -99,27 +93,29 @@ export default function Modal({noteAdded}) {
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button
+                <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
-                  >
+                >
                     Close
-                  </button>
-                  <button
+                </button>
+                <button
                     className="hover:bg-yellow-300 bg-yellow-400 text-grey-darkest  font-bold uppercase text-md px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={handleAddNote}
-                  >
-                    Add Note
-                  </button>
+                    onClick={updateNote}
+                >
+                    Modify
+                </button>
                 </div>
-              </div>
             </div>
-          </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            </div>
+        </div>
+        <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : null}
+    ) : null}
     </>
-  );
+  )
 }
+
+export default UpdateNote
