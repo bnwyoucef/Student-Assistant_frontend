@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Note from '../../components/Note';
 import axios from '../../Api/Axios';
-import PopUp from './../../components/AddNote';
+import PopUp from '../../components/AddNote';
 
 const Notes = () => {
   const [notes, setNotes] = useState([]);
   const [errMsg, setErrMsg] = useState('');
 
+  const [studentId, setStudentId] = useState(localStorage.getItem('user'))
+
   useEffect(() => {
     return async () => {
       try {
-        const response = await axios.get('ms-notes/api/notes');
+        const response = await axios.get(`ms-note/api/notes/${studentId}`);
+        console.log(response.data)
         setNotes(response.data);
       } catch (error:any) {
+        console.log(error.response.data)
         setErrMsg(error.message);
       }
     }
@@ -21,7 +25,7 @@ const Notes = () => {
   
 
   const noteList = notes.map((note, index) => {
-    return <Note key={index} {...{...note,date:"Juin 03, 2023"}}/>
+    return <Note key={index} {...{...note}}/>
   });
 
   return (

@@ -1,0 +1,11 @@
+.terminal {
+    background-color: black;
+    color: white;
+    font-family: "Courier New", monospace;
+    padding: 10px;
+    border: none;
+    resize: none;
+    height: 200px;
+    width: 600px;
+  }
+  

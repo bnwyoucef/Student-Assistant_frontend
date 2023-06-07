@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from '../Api/Axios';
 
 
 export default function Modal() {
   const [showModal, setShowModal] = React.useState(false);
   const [title, setTitle] = React.useState('')
   const [details, setDetails] = React.useState('')
+
+  const [studentId, setStudentId] = useState(localStorage.getItem('user'))
+
+  console.log(title)
+  console.log(details)
+
+  const handleAddNote = async () => {
+
+    setShowModal(false)
+
+    try {
+
+      const res = await axios.post("ms-note/api/notes/add_note", {title: title, body: details, studentId: studentId})
+
+      console.log(res.data)
+
+      /* const arr = [...notes]
+      arr.push(res.data)
+      setNotes(arr) */
+
+  } catch (error) {
+      console.log(error.response.data)
+  }
+
+  }
 
   return (
     <>
@@ -55,7 +81,7 @@ export default function Modal() {
                             type="text"
                             placeholder="note title"
                             value={title}
-                            onChange={event => setTitle(event.target.date)}
+                            onChange={event => setTitle(event.target.value)}
                         />
                         </div>
                         <div className="mb-6 mt-6">
@@ -72,7 +98,7 @@ export default function Modal() {
                             type="text"
                             placeholder="Note details"
                             value={details}
-                            onChange={event => setDetails(event.target.date)}
+                            onChange={event => setDetails(event.target.value)}
                         />
                         </div>
                 </form>
@@ -89,7 +115,7 @@ export default function Modal() {
                   <button
                     className="hover:bg-yellow-300 bg-yellow-400 text-grey-darkest  font-bold uppercase text-md px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={handleAddNote}
                   >
                     Add Note
                   </button>
