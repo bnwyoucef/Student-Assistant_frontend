@@ -21,11 +21,20 @@ const Notes = () => {
       }
     }
   }, [])
+
+  const noteAdded = (note) => {
+
+    const arr = [...notes]
+    arr.push(note)
+    setNotes(arr)
+
+  }
   
   
 
   const noteList = notes.map((note, index) => {
-    return <Note key={index} {...{...note}}/>
+    return <Note key={index} {...{...note}}
+     />
   });
 
   return (
@@ -34,7 +43,7 @@ const Notes = () => {
         <div className="sm:flex items-center justify-between">
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">Notes</p>
             <div className="mt-4 sm:mt-0">
-              <PopUp />
+              <PopUp noteAdded={noteAdded} />
             </div>
         </div>
       </div>

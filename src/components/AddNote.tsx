@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from '../Api/Axios';
 
 
-export default function Modal() {
+export default function Modal({noteAdded}) {
+
   const [showModal, setShowModal] = React.useState(false);
   const [title, setTitle] = React.useState('')
   const [details, setDetails] = React.useState('')
@@ -11,6 +12,7 @@ export default function Modal() {
 
   console.log(title)
   console.log(details)
+
 
   const handleAddNote = async () => {
 
@@ -21,6 +23,7 @@ export default function Modal() {
       const res = await axios.post("ms-note/api/notes/add_note", {title: title, body: details, studentId: studentId})
 
       console.log(res.data)
+      noteAdded(res.data)  // to update the parent 
 
       /* const arr = [...notes]
       arr.push(res.data)

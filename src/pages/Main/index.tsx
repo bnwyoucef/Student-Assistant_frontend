@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import {useNavigate} from 'react-router-dom'
 import axios from '../../Api/Axios';
 import "./cli.css"
+import MyFile from '../../components/MyFile';
 
 const Index=()=>{
 
@@ -20,6 +21,11 @@ const Index=()=>{
     const textareaRef = useRef(null);
 
     const navigate = useNavigate()
+
+
+    let myFileId = ''
+    let myFileType = ''
+    let myNoteId = ''
 
     
 
@@ -63,6 +69,16 @@ const Index=()=>{
         textareaRef.current.value = "";
       };
 
+      useEffect(() => {
+
+        if (command == '') {
+            setEnableNotes(false)
+            setEnableFiles(false)
+          }
+
+      }, [command])
+      
+
 
       const onCommandChange =  async (value) => {
 
@@ -98,8 +114,8 @@ const Index=()=>{
 
       }
 
-      console.log("lines", lines)
-      console.log("command", command)
+      /* console.log("lines", lines)
+      console.log("command", command) */
 
       const handleKeyDown = async (event) => {
 
@@ -107,10 +123,11 @@ const Index=()=>{
 
         const arrLines = [...lines]
 
-        console.log('selectedID',selectedFileId)
     
 
         if (event.key == "Enter") {
+
+            console.log('Enter is pressed :)')
             
            // if (command != '') {
                 /* setLines((prevLines) => {
@@ -161,12 +178,13 @@ const Index=()=>{
 
                     if (words[0].toLocaleLowerCase() == "delete" && words[1].toLocaleLowerCase() == "note") {
     
-                        if (selectedNoteId == null || selectedNoteId == '') return console.log("No note Selected")
+                        if (myNoteId == null || myNoteId == '') return console.log("No note Selected")
     
-                        const res = await axios.post(`ms-cli/api/cli/notes/${selectedNoteId}`, arrLines[0])
+                        const res = await axios.post(`ms-cli/api/cli/notes/${myNoteId}`, arrLines[0])
                         clearTextarea(event)
                         setLines([])
                         setSelectedNoteId('')
+                        myNoteId = ''
                         console.log(res)
     
     
@@ -191,9 +209,9 @@ const Index=()=>{
     
                     if (words[0].toLocaleLowerCase() == "open" && words[1].toLocaleLowerCase() == "file") {
     
-                        if (selectedFileId == null || selectedFileId == '') return console.log("No file Selected")
+                        if (myFileId == null || myFileId == '') return console.log("No file Selected")
     
-                        const res = await axios.post(`ms-cli/api/cli/files/${selectedFileId}`, arrLines[0], {
+                        const res = await axios.post(`ms-cli/api/cli/files/${myFileId}`, arrLines[0], {
                             responseType: 'blob',
                           })
                         console.log(res)
@@ -202,10 +220,12 @@ const Index=()=>{
                         
                         try {
     
-                            const url = window.URL.createObjectURL(new Blob([res.data], { type: fileType }));
+                            const url = window.URL.createObjectURL(new Blob([res.data], { type: myFileType }));
                             window.open(url);
                             setSelectedFileId('')
                             setFileType('')
+                            myFileId = ''
+                            myFileType = ''
                       
                           } catch (error) {
                             console.log(error)
@@ -213,11 +233,13 @@ const Index=()=>{
     
                     } else if (words[0].toLocaleLowerCase() == "delete" && words[1].toLocaleLowerCase() == "file") {
     
-                        if (selectedFileId == null || selectedFileId == '') return console.log("No file Selected")
+                        if (myFileId == null || myFileId == '') return console.log("No file Selected")
     
-                        const res = await axios.post(`ms-cli/api/cli/files/${selectedFileId}`, arrLines[0])
+                        const res = await axios.post(`ms-cli/api/cli/files/${myFileId}`, arrLines[0])
                         clearTextarea(event)
                         setLines([])
+                        myFileId = ''
+                        myFileType = ''
                         
                         console.log(res)
     
@@ -313,16 +335,27 @@ const Index=()=>{
 
       const selectNote = (id) => {
         setSelectedNoteId(id)
+        myNoteId = id
         if (textareaRef.current) {
             textareaRef.current.focus();
         }
+        const event = new KeyboardEvent("keydown", { key: "Enter" });
+        textareaRef.current.dispatchEvent(event);
+        handleKeyDown(event);
+
       }
+
       const selectFile = (id, type) => {
         setSelectedFileId(id)
         setFileType(type)
+        myFileId = id
+        myFileType = type
         if (textareaRef.current) {
             textareaRef.current.focus();
         }
+        const event = new KeyboardEvent("keydown", { key: "Enter" });
+        textareaRef.current.dispatchEvent(event);
+        handleKeyDown(event);
     
       }
 
