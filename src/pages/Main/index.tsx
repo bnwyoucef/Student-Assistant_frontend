@@ -372,35 +372,69 @@ const Index=()=>{
             onKeyDown= {handleKeyDown}
             ref={textareaRef}
         /> 
-
-       
         
             {enableNotes == true ? (
-                <ul>
+                <div className="w-full max-w-2xl px-4">
+                <div className="border rounded-lg border pb-6 border-gray-200">
+                    <div className="flex items-center border-b border-gray-200 justify-between px-6 py-3">
+                        <p className="text-sm lg:text-xl font-semibold leading-tight text-gray-800">Items</p>
+                    </div>
+                    <div className="px-6 pt-6 overflow-x-auto">
+                    <table className="w-full whitespace-nowrap">
+                    <tbody>
                     {notes.map((note) => {
                         return (
-                            <div>
-                                <span onClick={() => selectNote(note.noteId)}>{note.title}</span>
-                            </div>    
+                            <tr>
+                                <td>
+                                    <p>{note.title}</p>
+                                </td>
+                                <td className="pl-16">
+                                    <button onClick={() => selectNote(note.noteId)}>open</button>
+                                </td>
+                            </tr>
+                            // <div>
+                            //     <span onClick={() => selectNote(note.noteId)}>{note.title}</span>
+                            // </div>    
                         )
                     })}
-                </ul>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             ): null}
 
-            {enableFiles == true ? (
-                <ul>
+            {enableFiles == true ? ( 
+                <div className="w-full max-w-2xl px-4">
+                <div className="border rounded-lg border pb-6 border-gray-200">
+                    <div className="flex items-center border-b border-gray-200 justify-between px-6 py-3">
+                        <p className="text-sm lg:text-xl font-semibold leading-tight text-gray-800">Items</p>
+                    </div>
+                    <div className="px-6 pt-6 overflow-x-auto">
+                    <table className="w-full whitespace-nowrap">
+                    <tbody>
                     {files.map((file) => {
                         return (
-                            <div>
-                                <span onClick={() => selectFile(file.fileId, file.contentType)}>{file.name}</span>
-                            </div>    
+                            <tr>
+                                <td>
+                                    <p>{file.name}</p>
+                                </td>
+                                <td className="pl-16">
+                                    <button onClick={() => selectFile(file.fileId, file.contentType)}>Open</button>
+                                </td>
+                            </tr>
+                                // <div>
+                                //     <span onClick={() => selectFile(file.fileId, file.contentType)}>{file.name}</span>
+                                // </div>  
                         )
                     })}
-                </ul>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                
             ): null}
-
-
-
         </div>
     )
 }

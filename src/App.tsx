@@ -9,6 +9,7 @@ import AuthRoutes from './authRoutes/authRoutes';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Main from  './pages/Main'
+import Recommendation from './pages/Recommendation';
 
 
 function App() {
@@ -19,14 +20,14 @@ function App() {
         <Route key="sign-in" path={`/`} element={<SignIn/>} />
         <Route key="sign-up" path={`/sign-up`} element={<SignUp/>} />
         <Route path="/student" element={<AuthRoutes/>}>
-          <Route path="" element={<Dashboard />}>
+          <Route path="" element={<Dashboard />} >
           <Route path="" element={<Main />} />
           <Route path="notes" element={<Notes />} />
           <Route path="events" element={<Events />} />
           <Route path="files" element={<Files />} />
-          </Route>
+          <Route path="reading" element={<Recommendation />} />
         </Route>
-    
+        </Route>
         </Routes>
       </BrowserRouter>
   )
