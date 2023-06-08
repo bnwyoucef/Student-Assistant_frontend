@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from './../Api/Axios';
 
-const DeleteNote = () => {
+const DeleteNote = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [title, setTitle] = useState('')
     const [details, setDetails] = useState('')
@@ -10,8 +10,8 @@ const DeleteNote = () => {
     async function deleteNote() {
         setShowModal(false);
         try {
-            //TODO: delete the note with the specific id
-            //const response = await axios.delete()
+            const res = await axios.post(`ms-note/api/notes/delete_note/${props.noteId}`)
+            props.noteDeleted(props.index)
             console.log("deleted...");
             
         } catch (error) {

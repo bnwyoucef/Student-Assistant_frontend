@@ -4,7 +4,7 @@ import axios from '../../Api/Axios';
 import PopUp from '../../components/AddNote';
 
 const Notes = () => {
-  const [notes, setNotes] = useState([{noteId:1,title:'test',body:"test body",date:'02-06-2023'}]);
+  const [notes, setNotes] = useState([]);
   const [errMsg, setErrMsg] = useState('');
   const [studentId, setStudentId] = useState(localStorage.getItem('user'))
 
@@ -13,7 +13,7 @@ const Notes = () => {
       try {
         const response = await axios.get(`ms-note/api/notes/${studentId}`);
         console.log(response.data)
-        //setNotes(response.data);
+        setNotes(response.data);
       } catch (error:any) {
         console.log(error.response.data)
         setErrMsg(error.message);
@@ -26,11 +26,30 @@ const Notes = () => {
     arr.push(note)
     setNotes(arr)
   }
+
+  const noteUpdated = (index, newTitle, newBody, newDate) => {
+
+    const arr = [...notes]
+    arr[index].title = newTitle
+    arr[index].body = newBody
+    arr[index].date = newDate
+
+    setNotes(arr)
+  }
+
+  const noteDeleted = (index) => {
+    const arr = [...notes]
+    delete arr[index]
+    setNotes(arr)
+  }
   
   
 
   const noteList = notes.map((note, index) => {
-    return <Note key={index} {...{...note}} />
+    return <Note index={index}
+            note= {note}
+            noteUpdated={noteUpdated}
+            noteDeleted={noteDeleted}/>
   });
 
   return (

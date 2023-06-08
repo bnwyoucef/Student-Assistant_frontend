@@ -18,6 +18,7 @@ const Index=()=>{
     const [fileType, setFileType] = useState('')
     const [studentId, setStudentId] = useState(localStorage.getItem('user'))
     const [command, setCommand] = useState('')
+    const [deleteOpenBtn, setDeleteOpenBtn] = useState('')
     const textareaRef = useRef(null);
 
     const navigate = useNavigate()
@@ -100,12 +101,17 @@ const Index=()=>{
 
             if (words[1].toLocaleLowerCase() == "note") {
                 setEnableNotes(true)
-            } else if (words[1].toLocaleLowerCase() == "file") {
+            } else if (words[1].toLocaleLowerCase() == "file" && words[0].toLocaleLowerCase() == "open") {
+                setDeleteOpenBtn('open')
+                setEnableFiles(true)
+            } else if (words[1].toLocaleLowerCase() == "file" && words[0].toLocaleLowerCase() == "delete") {
+                setDeleteOpenBtn('delete')
                 setEnableFiles(true)
             } else {
                 setEnableNotes(false)
                 setEnableFiles(false)
             }
+            
         } else {
             setEnableNotes(false)
             setEnableFiles(false)
@@ -313,6 +319,7 @@ const Index=()=>{
                     console.log(res)
                     clearTextarea(event)
                     setLines([])
+                    navigate('/student/files', { state: { data: res.data._embedded.files } });
                 } else {
                     console.log("Command not recognized6 (client-Side)")
                 }
@@ -389,7 +396,7 @@ const Index=()=>{
                                     <p>{note.title}</p>
                                 </td>
                                 <td className="pl-16">
-                                    <button onClick={() => selectNote(note.noteId)}>open</button>
+                                    <button onClick={() => selectNote(note.noteId)}>delete</button>
                                 </td>
                             </tr>
                             // <div>
@@ -420,7 +427,7 @@ const Index=()=>{
                                     <p>{file.name}</p>
                                 </td>
                                 <td className="pl-16">
-                                    <button onClick={() => selectFile(file.fileId, file.contentType)}>Open</button>
+                                    <button onClick={() => selectFile(file.fileId, file.contentType)}>{deleteOpenBtn}</button>
                                 </td>
                             </tr>
                                 // <div>
