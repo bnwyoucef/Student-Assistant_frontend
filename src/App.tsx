@@ -10,6 +10,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Main from  './pages/Main'
 import Recommendation from './pages/Recommendation';
+import ArticleDetails from './pages/ArticleDetails/index';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="events" element={<Events />} />
           <Route path="files" element={<Files />} />
           <Route path="reading" element={<Recommendation />} />
+          <Route path="article" element={<ArticleDetails />} />
         </Route>
         </Route>
         </Routes>

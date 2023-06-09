@@ -1,0 +1,22 @@
+.sidebar {
+    display:none !important;
+}
+
+.art h1 {
+    font-size: 2rem !important;
+    line-height: 2.5rem !important;
+    padding: 1.5rem 0 !important;
+    --tw-text-opacity: 1;
+    color: rgb(161 98 7 / var(--tw-text-opacity));
+}
+
+.art h3, h2 {
+    font-size: 1.5rem !important;
+    padding: 1.5rem 0 .1rem 0 !important;
+    --tw-text-opacity: 1;
+    color: rgb(161 98 7 / var(--tw-text-opacity));
+}
+
+.author-profile-image {
+    display: none !important;
+}

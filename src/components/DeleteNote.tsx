@@ -51,7 +51,7 @@ const DeleteNote = () => {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p>are you sure to delete this note?</p>
+                  <p>Are you sure you want to delete this note?</p>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
