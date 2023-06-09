@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import axios from '../Api/Axios';
 
-const UpdateNote = ({note}) => {
+const UpdateNote = (props) => {
     const [showModal, setShowModal] = useState(false);
-    const [title, setTitle] = useState(note.title)
-    const [details, setDetails] = useState(note.body)
+    const [title, setTitle] = useState(props.note.title)
+    const [details, setDetails] = useState(props.note.body)
     const [studentId, setStudentId] = useState(localStorage.getItem('user'))
     
 
-    function updateNote() {
+    async function updateNote() {
         setShowModal(false);
         try {
-            //const response = await response.patch({})
-            //TODO: update the note
-            console.log("note updated succefully for test purpose!");
+            const res = await axios.post(`ms-note/api/notes/update_note/${props.note.noteId}`, {title: title, body: details, studentId: studentId})
+            props.noteUpdated(props.index, res.data.title, res.data.body, res.data.date)
+            console.log("note updated succefully");
         } catch (error) {
             
         }
